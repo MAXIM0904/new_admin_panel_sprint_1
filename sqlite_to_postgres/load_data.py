@@ -21,7 +21,7 @@ class FilmWork:
     @staticmethod
     def save_all_data(pg_connect, data):
         with pg_connect.cursor() as cursor_pg:
-            postgres_insert_query = """INSERT INTO content.film_work 
+            postgres_insert_query = """INSERT INTO content.film_work
             (id, title, description, creation_date, rating, type, created, modified)
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s)"""
             record_to_insert = astuple(data)
@@ -112,7 +112,8 @@ def load_from_sqlite(connection: sqlite3.Connection, pg_conn: _connection):
     for i_table in table:
         cursor_sql = connection.cursor()
         print(f"Копирование базы {i_table[0]}")
-        table_records_query = cursor_sql.execute(f"SELECT {i_table[1]} FROM {i_table[0]}")
+        table_records_query = cursor_sql.execute(
+            f"SELECT {i_table[1]} FROM {i_table[0]}")
         try:
             table_records = table_records_query.fetchmany(50)
             while len(table_records) != 0:
@@ -127,16 +128,18 @@ def load_from_sqlite(connection: sqlite3.Connection, pg_conn: _connection):
                         postgres_saver = GenreFilmWork(*data)
                     else:
                         postgres_saver = PersonFilmWork(*data)
-                    postgres_saver.save_all_data(pg_connect=pg_conn, data=postgres_saver)
+                    postgres_saver.save_all_data(
+                        pg_connect=pg_conn, data=postgres_saver)
                 table_records = table_records_query.fetchmany(50)
             print(f"Копирование базы {i_table[0]} успешно выполнено")
-        except (Exception, Error) as error:
-            print("Ошибка при работе с базой данных", error)
+        except (Exception, Error) as err:
+            print("Ошибка при работе с базой данных", err)
 
 
 if __name__ == '__main__':
     try:
-        dsl = {'dbname': 'movies_database', 'user': 'postgres', 'password': '12345', 'host': '127.0.0.1', 'port': 5432}
+        dsl = {'dbname': 'movies_database', 'user': 'postgres',
+               'password': '12345', 'host': '127.0.0.1', 'port': 5432}
         with sqlite3.connect('db.sqlite') as sqlite_conn, psycopg2.connect(**dsl, cursor_factory=DictCursor) as pg_conn:
             load_from_sqlite(sqlite_conn, pg_conn)
         print('Задача копирования базы данных завершена.')
