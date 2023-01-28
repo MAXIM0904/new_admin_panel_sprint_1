@@ -38,6 +38,7 @@ class FilmWork(UUIDMixin, TimeModifiedMixin):
 
     class Meta:
         db_table = "content\".\"film_work"
+        indexes = [models.Index(fields=['creation_date'], name='film_work_idx')]
         verbose_name = _('film')
         verbose_name_plural = _('films')
 
@@ -46,8 +47,7 @@ class FilmWork(UUIDMixin, TimeModifiedMixin):
 
 
 class FilmWorkMixin(models.Model):
-    film_work = models.ForeignKey(
-        FilmWork, on_delete=models.CASCADE, verbose_name=_('Film work'))
+    film_work = models.ForeignKey(FilmWork, on_delete=models.CASCADE, verbose_name=_('Film work'))
 
     class Meta:
         abstract = True
@@ -59,6 +59,7 @@ class Genre(UUIDMixin, TimeModifiedMixin):
 
     class Meta:
         db_table = "content\".\"genre"
+        indexes = [models.Index(fields=['description'], name='genre_idx')]
         verbose_name = _('genre')
         verbose_name_plural = _('genres')
 
@@ -71,6 +72,7 @@ class Person(UUIDMixin, TimeModifiedMixin):
 
     class Meta:
         db_table = "content\".\"person"
+        indexes = [models.Index(fields=['full_name'], name='person_idx')]
         verbose_name = _('person')
         verbose_name_plural = _('persons')
 
@@ -80,7 +82,7 @@ class Person(UUIDMixin, TimeModifiedMixin):
 
 class GenreFilmWork(UUIDMixin, TimeCreatedMixin, FilmWorkMixin):
     genre = models.ForeignKey(
-        Genre, on_delete=models.CASCADE, verbose_name=_('Title'))
+        Genre, on_delete=models.CASCADE, related_name='genre_film_work', verbose_name=_('Title'))
 
     class Meta:
         db_table = "content\".\"genre_film_work"
@@ -92,14 +94,22 @@ class GenreFilmWork(UUIDMixin, TimeCreatedMixin, FilmWorkMixin):
 
 
 class PersonFilmWork(UUIDMixin, TimeCreatedMixin, FilmWorkMixin):
-    role = models.TextField(_('Role'), blank=True, null=True)
+    STATUS_ROLE = [
+        (_('regisseur'), _('regisseur')),
+        (_('screenwriter'), _('screenwriter')),
+        (_('actor'), _('actor'))
+    ]
+
+    role = models.TextField(_('Role'), choices=STATUS_ROLE, blank=True, null=True)
     person = models.ForeignKey(
         Person, on_delete=models.CASCADE, verbose_name=_('Person'))
 
     class Meta:
         db_table = "content\".\"person_film_work"
+        indexes = [models.Index(fields=['role'], name='person_film_work')]
         verbose_name = _("The actor's connection to the film")
         verbose_name_plural = _("The actor's connection with films")
+
 
     def __str__(self):
         return self.role
