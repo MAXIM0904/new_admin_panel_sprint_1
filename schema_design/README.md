@@ -10,3 +10,12 @@
 <li>Все таблицы находятся в схеме content.</li>
 <li>В качестве первичных ключей используется uuid.</li>
 </ol>
+
+<p>Файл можно запустить из командной строки следующей командой:</p>
+
+<p>psql -h 127.0.0.1 -U name -d name_database –f patch\movies_database.ddl</p>
+
+<p>Где:</p>
+<p>name - имя пользователя базы данных postgres</p>
+<p>name_database - имя базы данных</p>
+<p>patch - абсолютный путь до movies_database.ddl</p>
