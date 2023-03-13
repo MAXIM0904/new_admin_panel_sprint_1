@@ -3,7 +3,8 @@
 Для запуска проекта необходимо:
 1. В в папке sqlite_to_postgres создать файл .env
 2. Заполнить созданный файл со следующиеми параметрами PosqreSQL:
-DATABASE=name_database/n
+
+DATABASE=name_database
 DB_USER=user_database
 DB_PASSWORD=password_database
 HOST=host_database
