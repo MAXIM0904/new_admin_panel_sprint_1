@@ -17,7 +17,7 @@
 <h3>Для запуска проекта необходимо выполнить следующие команды:</h3>
 <ol>
    <li>Установить зависимости из requirements.txt командой</li>
-     <p>python requirements.txt</p>
+     <p>pip install -r requirements.txt</p>
    <li>Создать файл с названием .env</li>
    <li>Внести в него заполненные данные:</li>
     <p>SECRET_KEY=django_key</p>
