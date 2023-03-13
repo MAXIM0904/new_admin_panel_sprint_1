@@ -1,7 +1,7 @@
 <h2>Перенос данных из SQLite в PosqreSQL</h2>
 
 <h3>Для запуска проекта необходимо:</h3>
-1. В в папке sqlite_to_postgres создать файл .env
+<p>1. В в папке sqlite_to_postgres создать файл .env</p>
 2. Заполнить созданный файл со следующиеми параметрами PosqreSQL:
 
 <p>DATABASE=name_database</p>
