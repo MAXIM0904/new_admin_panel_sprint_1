@@ -3,15 +3,14 @@
 Для запуска проекта необходимо:
 1. В в папке sqlite_to_postgres создать файл .env
 2. Заполнить созданный файл со следующиеми параметрами PosqreSQL:
-
-DATABASE=name_database
-DB_USER=user_database
-DB_PASSWORD=password_database
-HOST=host_database
-PORT=port_database
+<p>DATABASE=name_database</p>
+<p>DB_USER=user_database</p>
+<p>DB_PASSWORD=password_database</p>
+<p>HOST=host_database</p>
+<p>PORT=port_database</p>
 
 Запустить файл load_data.py командой 
-python load_data.py
+<p>python load_data.py</p>
 
 Результаты выполнения скрипта:
 - После применения скрипта все фильмы, персоны и жанры появляются в PostgreSQL.  
